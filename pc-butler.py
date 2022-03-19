@@ -1,18 +1,11 @@
-import sys
-print('Tested on 3.10.2. Your version: ', sys.version)
-print("*** **** ****")
-print("\n")
+from scapy.layers.l2 import ARP, Ether, srp, Loopback
 
-def help():
-	print("*** HELP MENU ***")
+import nmap
 
 
 def main():
-	help()
-    
+    scanner = nmap.PortScanner()
+    scan_range = scanner.scan(hosts="192.168.2.101")
 
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
