@@ -15,4 +15,3 @@ for query_ans in ans:
 
 if __name__ == "__main__":
     print(json.dumps(mac_table, sort_keys=True, indent=4, separators=(",", ": ")))
-    test_change = False
