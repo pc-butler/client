@@ -4,13 +4,13 @@ import json
 
 ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst="192.168.2.0/24"), timeout=2, verbose=0)
 
-mac_table = {}
+mac_table = {packet[Ether].src: packet[ARP].psrc for query_ans in ans for packet in query_ans}
 
-for query_ans in ans:
-    for packet in query_ans:
-        device_mac = packet[Ether].src
-        device_ip = packet[ARP].psrc
-        mac_table[device_ip] = device_mac
+# for query_ans in ans:
+#     for packet in query_ans:
+#         device_mac = packet[Ether].src
+#         device_ip = packet[ARP].psrc
+#         mac_table[device_ip] = device_mac
 
 
 if __name__ == "__main__":
