@@ -21,7 +21,8 @@ for query_ans in ans:
     for packet in query_ans:
         device_mac = packet[Ether].src
         device_ip = packet[ARP].psrc
-        send_computer(device_mac, hostnames[random.randint(0, 4)])
+        send_computer(device_mac, random.choice(hostnames))
+
 
 if __name__ == "__main__":
     print(json.dumps(mac_table, sort_keys=True, indent=4, separators=(",", ": ")))
