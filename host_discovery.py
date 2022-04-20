@@ -1,17 +1,27 @@
 from scapy.layers.l2 import ARP, Ether
 from scapy.sendrecv import srp
+import requests
+import random
 import json
 
 ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst="192.168.2.0/24"), timeout=2, verbose=0)
 
 mac_table = {}
 
+hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION", "DESKTOP-OFFICE"]
+
+
+def send_computer(mac, hostname):
+    url = f"https://dashboard.pcbutler.net/api/new/{mac}/{hostname}"
+    r = requests.post(url=url)
+    print(r.text)
+
+
 for query_ans in ans:
     for packet in query_ans:
         device_mac = packet[Ether].src
         device_ip = packet[ARP].psrc
-        mac_table[device_ip] = device_mac
-
+        send_computer(device_mac, hostnames[random.randint(0, 4)])
 
 if __name__ == "__main__":
     print(json.dumps(mac_table, sort_keys=True, indent=4, separators=(",", ": ")))
