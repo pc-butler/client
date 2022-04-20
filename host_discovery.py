@@ -11,8 +11,8 @@ mac_table = {}
 hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION", "DESKTOP-OFFICE"]
 
 
-def send_computer(mac, hostname):
-    url = f"http://dashboard.pcbutler.net/api/new/{mac}/{hostname}"
+def send_computer(mac, hostname, address):
+    url = f"http://dashboard.pcbutler.net/api/new/{mac}/{hostname}/{address}"
     r = requests.get(url=url)
     print(r.text)
 

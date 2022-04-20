@@ -23,4 +23,5 @@ def wake_devices(mac_table):
 
 if __name__ == "__main__":
     mac_table = get_table()
+    print(mac_table)
     wake_devices(mac_table)
