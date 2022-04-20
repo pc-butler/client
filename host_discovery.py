@@ -13,7 +13,7 @@ hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION
 
 def send_computer(mac, hostname):
     url = f"http://dashboard.pcbutler.net/api/new/{mac}/{hostname}"
-    r = requests.post(url=url)
+    r = requests.get(url=url)
     print(r.text)
 
 
