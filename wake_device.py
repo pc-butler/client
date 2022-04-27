@@ -6,6 +6,7 @@ queue_endpoint = "http://dashboard.pcbutler.net/api/queue.json"
 
 def get_table():
     r = requests.get(url=queue_endpoint)
+    print("text")
     return r.json()
 
 
