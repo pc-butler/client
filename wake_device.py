@@ -10,16 +10,13 @@ def get_table():
     return r.json()
 
 
-def clear_queue(mac_address):
-    payload = {"mac": mac_address}
-    r = requests.delete(url=queue_endpoint, data=payload)
-    print(r.status_code)
-
+def clear_queue():
+    pass
+### Waiting on endpoint for clear queue
 
 def wake_devices(mac_table):
     for device in mac_table:
         send_magic_packet(device["mac"])
-        clear_queue(device["mac"])
 
 
 if __name__ == "__main__":
