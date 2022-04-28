@@ -4,7 +4,11 @@ import requests
 import random
 import json
 
-ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst="192.168.2.0/24"), timeout=2, verbose=0)
+
+def find_hosts():
+    ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst="192.168.2.0/24"), timeout=2, verbose=0)
+    return ans
+
 
 mac_table = {}
 
@@ -17,11 +21,12 @@ def send_computer(mac, hostname, address):
     print(r.text)
 
 
-for query_ans in ans:
-    for packet in query_ans:
-        device_mac = packet[Ether].src
-        device_ip = packet[ARP].psrc
-        send_computer(device_mac, random.choice(hostnames))
+def sending_computer(ans):
+    for query_ans in ans:
+        for packet in query_ans:
+            device_mac = packet[Ether].src
+            device_ip = packet[ARP].psrc
+            send_computer(device_mac, random.choice(hostnames))
 
 
 if __name__ == "__main__":
