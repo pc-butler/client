@@ -10,9 +10,17 @@ def get_table():
     return r.json()
 
 
-def clear_queue():
-    pass
-### Waiting on endpoint for clear queue
+def clear_queue(mac):
+    url = f"http://dashboard.pcbutler.net/api/delete/queue/{mac}"
+    r = requests.get(url=url)
+    return r
+
+
+def clear_all():
+    url = f"http://dashboard.pcbutler.net/api/delete/queue/all"
+    r = requests.get(url=url)
+    return r
+
 
 def wake_devices(mac_table):
     for device in mac_table:

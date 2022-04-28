@@ -10,7 +10,12 @@ def find_hosts():
     return ans
 
 
-mac_table = {}
+def get_current_computers():
+    url = "http://dashboard.pcbutler.net/api/all.json"
+    active_comps = requests.get(url=url).json()
+    active_macs = [comp["mac"] for comp in active_comps]
+    return active_macs
+
 
 hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION", "DESKTOP-OFFICE"]
 
@@ -26,8 +31,8 @@ def sending_computer(ans):
         for packet in query_ans:
             device_mac = packet[Ether].src
             device_ip = packet[ARP].psrc
-            send_computer(device_mac, random.choice(hostnames))
+            send_computer(device_mac, random.choice(hostnames), device_ip)
 
 
 if __name__ == "__main__":
-    print(json.dumps(mac_table, sort_keys=True, indent=4, separators=(",", ": ")))
+    pass
