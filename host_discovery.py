@@ -45,4 +45,4 @@ def update_database(ans):
 
 
 if __name__ == "__main__":
-    pass
+    update_database(find_hosts())
