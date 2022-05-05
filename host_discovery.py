@@ -4,7 +4,7 @@ from datetime import datetime
 import requests
 import random
 
-base_url = "http://dashboard.pcbutler/api"
+base_url = "https://dashboard.pcbutler.net/api"
 
 
 def find_hosts():
@@ -25,11 +25,11 @@ hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION
 def send_computer(mode, mac=None, hostname=None, address=None, time=None):
     target_url = None
     if mode == "new":
-        target_url = f"{base_url}/{mac}/{hostname}/{address}"
+        target_url = f"{base_url}/new/{mac}/{hostname}/{address}"
     elif mode == "update":
-        target_url = f"{base_url}/update/{mac}"
+        target_url = f"{base_url}/update/{mac}/{address}/{time}"
     r = requests.get(url=target_url)
-    print(r.text)
+    print(r.status_code)
 
 
 def update_database(ans):
@@ -39,7 +39,7 @@ def update_database(ans):
             device_mac = packet[Ether].src
             device_ip = packet[ARP].psrc
             if device_mac in active_macs:
-                send_computer("update", time=datetime.now().timestamp())
+                send_computer("update", mac=device_mac, address=device_ip,time=datetime.now().timestamp())
             else:
                 send_computer("new", mac=device_mac, hostname=random.choice(hostnames), address=device_ip)
 

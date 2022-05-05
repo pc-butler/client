@@ -1,23 +1,22 @@
 from wakeonlan import send_magic_packet
+from host_discovery import base_url
 import requests
-
-queue_endpoint = "http://dashboard.pcbutler.net/api/queue.json"
 
 
 def get_queue():
-    r = requests.get(url=queue_endpoint)
+    r = requests.get(url=f"{base_url}/queue.json")
     print("text")
     return r.json()
 
 
 def clear_queue(mac):
-    url = f"http://dashboard.pcbutler.net/api/delete/queue/{mac}"
+    url = f"{base_url}/delete/queue/{mac}"
     r = requests.get(url=url)
     return r
 
 
 def clear_all():
-    url = f"http://dashboard.pcbutler.net/api/delete/queue/all"
+    url = f"{base_url}/delete/queue/all"
     r = requests.get(url=url)
     return r
 
