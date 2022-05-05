@@ -29,7 +29,6 @@ def send_computer(mode, mac=None, hostname=None, address=None, time=None):
     elif mode == "update":
         target_url = f"{base_url}/update/{mac}/{address}/{time}"
     r = requests.get(url=target_url)
-    print(r.status_code)
 
 
 def update_database(ans):
