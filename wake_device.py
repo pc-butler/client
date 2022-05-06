@@ -5,8 +5,8 @@ import requests
 
 def get_queue():
     r = requests.get(url=f"{base_url}/queue.json")
-    print("text")
-    return r.json()
+    queued_devices = [mac["mac"] for mac in r.json()]
+    return queued_devices
 
 
 def clear_queue(mac):
