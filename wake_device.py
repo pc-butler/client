@@ -8,7 +8,10 @@ import time
 
 def get_queue():
     r = requests.get(url=f"{base_url}/queue.json")
-    queued_devices = [mac["mac"] for mac in r.json()]
+    if r.json() is None:
+        return []
+    else:
+        queued_devices = [mac["mac"] for mac in r.json()]
     return queued_devices
 
 
