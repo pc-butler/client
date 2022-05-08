@@ -32,9 +32,9 @@ hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION
 def send_wake_status(mac, flag=None):
     url = None
     if flag == "online":
-        url = f"{base_url}/api/update/online/{mac}"
+        url = f"{base_url}/update/online/{mac}"
     if flag == "offline":
-        url = f"{base_url}/api/update/offline/{mac}"
+        url = f"{base_url}/update/offline/{mac}"
     r = requests.get(url=url)
 
 
