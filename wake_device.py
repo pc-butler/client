@@ -1,9 +1,9 @@
-from wakeonlan import send_magic_packet
-from host_discovery import base_url, send_wake_status
-import sys
-from tqdm.contrib.concurrent import thread_map
-import requests
 import time
+
+import requests
+from wakeonlan import send_magic_packet
+
+from host_discovery import base_url, send_wake_status
 
 
 def get_queue():
@@ -29,10 +29,11 @@ def clear_all():
 
 def wake_devices(mac_table):
     queued_devices = get_queue()
-    thread_map(send_magic_packet, queued_devices)
-    thread_map(clear_queue, queued_devices)
-    time.sleep(5)
-    thread_map(send_wake_status, queued_devices)
+    for mac in queued_devices:
+        send_magic_packet(mac)
+        clear_queue(mac)
+        time.sleep(5)
+        send_wake_status("online", mac)
 
 
 def start():
