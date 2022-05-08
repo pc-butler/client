@@ -9,6 +9,7 @@ from scapy.sendrecv import srp
 import wake_device
 
 base_url = "https://dashboard.pcbutler.net/api"
+hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION", "DESKTOP-OFFICE"]
 
 
 def find_hosts():
@@ -26,7 +27,6 @@ def get_current_computers():
     return active_macs
 
 
-hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION", "DESKTOP-OFFICE"]
 
 
 def send_wake_status(mac, flag=None):
