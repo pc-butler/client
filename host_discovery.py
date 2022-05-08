@@ -44,8 +44,6 @@ def send_computer(mode, mac=None, hostname=None, address=None):
 
 
 def update_database(ans):
-    database_macs = get_current_computers()
-
     discovery_table = {}
     for query_ans in ans:  # Discover new devices
         for packet in query_ans:
@@ -53,16 +51,21 @@ def update_database(ans):
             device_ip = packet[ARP].psrc
             discovery_table[device_mac] = device_ip
 
-    for mac in database_macs:  # Check if device is already in database
-        if mac in discovery_table.keys():  # Send online status if in db
-            send_wake_status(mac, "online")
-            discovery_table.pop(mac)
-        else:  # Send offline status if in db but not discovered
-            send_wake_status(mac, "offline")
-            discovery_table.pop(mac)
+    database_macs = get_current_computers()
+    if len(database_macs) != 0:
+        for mac in database_macs:  # Check if device is already in database
+            if mac in discovery_table.keys():  # Send online status if in db
+                send_wake_status(mac, "online")
+                discovery_table.pop(mac)
+            else:  # Send offline status if in db but not discovered
+                send_wake_status(mac, "offline")
+                discovery_table.pop(mac)
 
-    for mac, ip in discovery_table.items():
-        send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
+        for mac, ip in discovery_table.items():
+            send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
+    else:
+        for mac, ip in discovery_table.items():
+            send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
 
 
 if __name__ == "__main__":
