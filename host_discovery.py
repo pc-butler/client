@@ -73,6 +73,7 @@ def update_database(ans):
             send_wake_status(mac, "online")
 
 
+
 if __name__ == "__main__":
     while True:
         try:
