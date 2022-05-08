@@ -8,7 +8,7 @@ base_url = "https://dashboard.pcbutler.net/api"
 
 
 def find_hosts():
-    ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst="192.168.2.0/24"), timeout=2, verbose=0)
+    ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst="192.168.1.0/24"), timeout=2, verbose=0)
     return ans
 
 
@@ -44,4 +44,5 @@ def update_database(ans):
 
 
 if __name__ == "__main__":
-    update_database(find_hosts())
+    # update_database(find_hosts())
+    print(find_hosts())

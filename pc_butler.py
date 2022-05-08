@@ -14,6 +14,7 @@ async def wake_devices():
     queue = wake_device.get_queue()
     wake_device.wake_devices(queue)
 
+
 async def main():
     now = datetime.now().strftime("%H-%M-%S")
     hostd_task = loop.create_task(perform_host_discovery())

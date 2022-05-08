@@ -24,6 +24,7 @@ def clear_all():
 def wake_devices(mac_table):
     for device in mac_table:
         send_magic_packet(device["mac"])
+        clear_queue(device["mac"])
 
 
 if __name__ == "__main__":
