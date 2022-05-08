@@ -54,6 +54,7 @@ def update_database(ans):
             device_mac = packet[Ether].src
             device_ip = packet[ARP].psrc
             discovery_table[device_mac] = device_ip
+    print(discovery_table)
 
     database_macs = get_current_computers()
     if len(database_macs) != 0:
