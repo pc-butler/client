@@ -37,12 +37,14 @@ def update_database(ans):
         for packet in query_ans:
             device_mac = packet[Ether].src
             device_ip = packet[ARP].psrc
+            print(f"ip : {device_ip}, mac: {device_mac}")
             if device_mac in active_macs:
-                send_computer("update", mac=device_mac, address=device_ip,time=datetime.now().timestamp())
+                pass
+                # send_computer("update", mac=device_mac, address=device_ip,time=datetime.now().timestamp())
             else:
-                send_computer("new", mac=device_mac, hostname=random.choice(hostnames), address=device_ip)
+                pass
+                # send_computer("new", mac=device_mac, hostname=random.choice(hostnames), address=device_ip)
 
 
 if __name__ == "__main__":
-    # update_database(find_hosts())
-    print(find_hosts())
+    update_database(find_hosts())
