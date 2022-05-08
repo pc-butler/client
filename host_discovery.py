@@ -64,7 +64,6 @@ def update_database(ans):
                 discovery_table.pop(mac)
             else:  # Send offline status if in db but not discovered
                 send_wake_status(mac, "offline")
-                discovery_table.pop(mac)
 
         for mac, ip in discovery_table.items():
             send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
