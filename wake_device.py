@@ -36,6 +36,7 @@ def wake_devices(mac_table):
 
 def start():
     devices = get_queue()
+    print(f"{len(devices)} : {devices}")
     if len(devices) == 0:
         pass
     else:

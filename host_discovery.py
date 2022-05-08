@@ -1,12 +1,12 @@
-from scapy.layers.l2 import ARP, Ether
-from scapy.sendrecv import srp
-from wakeonlan import send_magic_packet
-from datetime import datetime
-import wake_device
-import requests
 import random
 import sys
 import time
+
+import requests
+from scapy.layers.l2 import ARP, Ether
+from scapy.sendrecv import srp
+
+import wake_device
 
 base_url = "https://dashboard.pcbutler.net/api"
 
@@ -71,7 +71,6 @@ def update_database(ans):
         for mac, ip in discovery_table.items():
             send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
             send_wake_status(mac, "online")
-
 
 
 if __name__ == "__main__":
