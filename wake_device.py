@@ -27,7 +27,7 @@ def clear_all():
     return r
 
 
-def wake_devices(mac_table):
+def wake_devices():
     queued_devices = get_queue()
     for mac in queued_devices:
         send_magic_packet(mac)
@@ -42,4 +42,4 @@ def start():
     if len(devices) == 0:
         pass
     else:
-        wake_devices(devices)
+        wake_devices()
