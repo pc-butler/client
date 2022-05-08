@@ -70,6 +70,7 @@ def update_database(ans):
     else:
         for mac, ip in discovery_table.items():
             send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
+            send_wake_status(mac, "online")
 
 
 if __name__ == "__main__":
