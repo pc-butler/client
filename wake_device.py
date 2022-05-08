@@ -1,11 +1,17 @@
-from wakeonlan import send_magic_packet
-from host_discovery import base_url
+import time
+
 import requests
+from wakeonlan import send_magic_packet
+
+from host_discovery import base_url, send_wake_status
 
 
 def get_queue():
     r = requests.get(url=f"{base_url}/queue.json")
-    queued_devices = [mac["mac"] for mac in r.json()]
+    if r.json() is None:
+        return []
+    else:
+        queued_devices = [mac["mac"] for mac in r.json()]
     return queued_devices
 
 
@@ -21,10 +27,22 @@ def clear_all():
     return r
 
 
-def wake_devices(mac_table):
-    for device in mac_table:
-        send_magic_packet(device["mac"])
+def wake_devices():
+    queued_devices = get_queue()
+    for mac in queued_devices:
+        i = 0
+        while i < 3:
+            send_magic_packet(mac)
+            i += 1
+        clear_queue(mac)
+        time.sleep(5)
+        send_wake_status(mac, flag="online")
 
 
-if __name__ == "__main__":
-    pass
+def start():
+    devices = get_queue()
+    print(f"{len(devices)} : {devices}")
+    if len(devices) == 0:
+        pass
+    else:
+        wake_devices()
