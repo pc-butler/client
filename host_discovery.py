@@ -49,8 +49,8 @@ def send_computer(mode, mac=None, hostname=None, address=None):
 
 def format_mac(mac):
     sep = mac[2]
-    mac = mac.replace(sep,"-")
-    return mac
+    return mac.replace(sep, "-")
+
 
 def update_database(ans):
     discovery_table = {}
@@ -65,17 +65,14 @@ def update_database(ans):
     if len(database_macs) != 0:
         for mac in database_macs:  # Check if device is already in database
             if mac in discovery_table.keys():  # Send online status if in db
-                send_wake_status(mac, "online")
+                send_wake_status(mac, flag="online")
                 discovery_table.pop(mac)
             else:  # Send offline status if in db but not discovered
-                send_wake_status(mac, "offline")
+                send_wake_status(mac, flag="offline")
 
-        for mac, ip in discovery_table.items():
-            send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
-    else:
-        for mac, ip in discovery_table.items():
-            send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
-            send_wake_status(mac, "online")
+    for mac, ip in discovery_table.items():
+        send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
+        send_wake_status(mac, flag="online")
 
 
 if __name__ == "__main__":
