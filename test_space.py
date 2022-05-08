@@ -9,4 +9,4 @@ def main():
 
 
 if __name__ == "__main__":
-    send_magic_packet("20.47.47.EF.6F.C2")
+    send_magic_packet("20-47-47-EF-6F-C2")
