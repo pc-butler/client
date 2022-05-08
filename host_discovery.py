@@ -48,5 +48,5 @@ def update_database(ans):
 
 
 if __name__ == "__main__":
-    update_database(find_hosts())
-    send_magic_packet("20:47:47:ef:6f:c2")
+    # update_database(find_hosts())
+    send_magic_packet("20.47.47.ef.6f.c2")
