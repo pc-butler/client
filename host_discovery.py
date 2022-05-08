@@ -2,6 +2,7 @@ from scapy.layers.l2 import ARP, Ether
 from scapy.sendrecv import srp
 from wakeonlan import send_magic_packet
 from datetime import datetime
+import wake_device
 import requests
 import random
 import sys
@@ -76,5 +77,6 @@ if __name__ == "__main__":
         try:
             update_database(find_hosts())
             time.sleep(5)
+            wake_device.start()
         except KeyboardInterrupt:
             sys.exit(0)

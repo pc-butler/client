@@ -31,7 +31,7 @@ def wake_devices(mac_table):
     thread_map(send_wake_status, get_queue)
 
 
-if __name__ == "__main__":
+def start():
     while True:
         try:
             devices = get_queue()
