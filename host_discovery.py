@@ -62,7 +62,7 @@ def update_database(ans):
             discovery_table.pop(mac)
 
     for mac, ip in discovery_table.items():
-        send_computer("new", mac=mac, ip=ip, hostname=random.choice(hostnames))
+        send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
 
 
 if __name__ == "__main__":
