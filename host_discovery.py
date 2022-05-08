@@ -25,30 +25,44 @@ def get_current_computers():
 hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION", "DESKTOP-OFFICE"]
 
 
-def send_wake_status(mac):
-    url = f"{base_url}/api/update/online/{mac}"
+def send_wake_status(mac, flag=None):
+    url = None
+    if flag == "online":
+        url = f"{base_url}/api/update/online/{mac}"
+    if flag == "offline":
+        url = f"{base_url}/api/update/offline/{mac}"
     r = requests.get(url=url)
 
 
-def send_computer(mode, mac=None, hostname=None, address=None, time=None):
+def send_computer(mode, mac=None, hostname=None, address=None):
     target_url = None
     if mode == "new":
         target_url = f"{base_url}/new/{mac}/{hostname}/{address}"
     elif mode == "update":
-        target_url = f"{base_url}/update/{mac}/{address}/{time}"
+        target_url = f"{base_url}/update/{mac}/{address}"
     r = requests.get(url=target_url)
 
 
 def update_database(ans):
-    active_macs = get_current_computers()
-    for query_ans in ans:
+    database_macs = get_current_computers()
+
+    discovery_table = {}
+    for query_ans in ans:  # Discover new devices
         for packet in query_ans:
             device_mac = packet[Ether].src
             device_ip = packet[ARP].psrc
-            if device_mac in active_macs:
-                send_computer("update", mac=device_mac, address=device_ip, time=datetime.now().timestamp())
-            else:
-                send_computer("new", mac=device_mac, hostname=random.choice(hostnames), address=device_ip)
+            discovery_table[device_mac] = device_ip
+
+    for mac in database_macs:  # Check if device is already in database
+        if mac in discovery_table.keys():  # Send online status if in db
+            send_wake_status(mac, "online")
+            discovery_table.pop(mac)
+        else:  # Send offline status if in db but not discovered
+            send_wake_status(mac, "offline")
+            discovery_table.pop(mac)
+
+    for mac, ip in discovery_table.items():
+        send_computer("new", mac=mac, ip=ip, hostname=random.choice(hostnames))
 
 
 if __name__ == "__main__":
