@@ -33,7 +33,7 @@ def wake_devices():
         send_magic_packet(mac)
         clear_queue(mac)
         time.sleep(5)
-        send_wake_status("online", mac)
+        send_wake_status(mac, flag="online")
 
 
 def start():
