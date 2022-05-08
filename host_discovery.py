@@ -49,16 +49,14 @@ def send_computer(mode, mac=None, hostname=None, address=None):
 
 def format_mac(mac):
     sep = mac[2]
-    mac = mac.replace(sep,"-")
+    mac = mac.replace(sep, "-")
     return mac
+
 
 def update_database(ans):
     discovery_table = {}
     for query_ans in ans:  # Discover new devices
-        for packet in query_ans:
-            device_mac = format_mac(packet[Ether].src)
-            device_ip = packet[ARP].psrc
-            discovery_table[device_mac] = device_ip
+        discovery_table = {format_mac(packet[Ether].src): packet[ARP].psrc for packet in query_ans}
     print(discovery_table)
 
     database_macs = get_current_computers()
