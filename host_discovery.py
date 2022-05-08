@@ -4,6 +4,8 @@ from wakeonlan import send_magic_packet
 from datetime import datetime
 import requests
 import random
+import sys
+import time
 
 base_url = "https://dashboard.pcbutler.net/api"
 
@@ -23,6 +25,11 @@ def get_current_computers():
 hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION", "DESKTOP-OFFICE"]
 
 
+def send_wake_status(mac):
+    url = f"{base_url}/api/update/online/{mac}"
+    r = requests.get(url=url)
+
+
 def send_computer(mode, mac=None, hostname=None, address=None, time=None):
     target_url = None
     if mode == "new":
@@ -38,15 +45,16 @@ def update_database(ans):
         for packet in query_ans:
             device_mac = packet[Ether].src
             device_ip = packet[ARP].psrc
-            print(f"ip : {device_ip}, mac: {device_mac}")
             if device_mac in active_macs:
-                pass
-                # send_computer("update", mac=device_mac, address=device_ip,time=datetime.now().timestamp())
+                send_computer("update", mac=device_mac, address=device_ip, time=datetime.now().timestamp())
             else:
-                pass
-                # send_computer("new", mac=device_mac, hostname=random.choice(hostnames), address=device_ip)
+                send_computer("new", mac=device_mac, hostname=random.choice(hostnames), address=device_ip)
 
 
 if __name__ == "__main__":
-    # update_database(find_hosts())
-    send_magic_packet("98-28-A6-24-8A-58")
+    while True:
+        try:
+            update_database(find_hosts())
+            time.sleep(5)
+        except KeyboardInterrupt:
+            sys.exit(0)
