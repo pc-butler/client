@@ -28,10 +28,11 @@ def clear_all():
 
 
 def wake_devices(mac_table):
-    thread_map(send_magic_packet, get_queue)
-    thread_map(clear_queue, get_queue)
+    queued_devices = get_queue()
+    thread_map(send_magic_packet, queued_devices)
+    thread_map(clear_queue, queued_devices)
     time.sleep(5)
-    thread_map(send_wake_status, get_queue)
+    thread_map(send_wake_status, queued_devices)
 
 
 def start():
