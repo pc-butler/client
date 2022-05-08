@@ -19,7 +19,7 @@ def find_hosts():
 def get_current_computers():
     url = f"{base_url}/all.json"
     active_comps = requests.get(url=url).json()
-    if len(active_comps) == 0:
+    if active_comps.text() is None:
         active_macs = []
     else:
         active_macs = [comp["mac"] for comp in active_comps]
