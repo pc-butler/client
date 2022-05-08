@@ -35,13 +35,8 @@ def wake_devices(mac_table):
 
 
 def start():
-    while True:
-        try:
-            devices = get_queue()
-            time.sleep(5)
-            if len(devices) == 0:
-                continue
-            else:
-                wake_devices(devices)
-        except KeyboardInterrupt:
-            sys.exit(0)
+    devices = get_queue()
+    if len(devices) == 0:
+        pass
+    else:
+        wake_devices(devices)
