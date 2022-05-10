@@ -27,8 +27,6 @@ def get_current_computers():
     return active_macs
 
 
-
-
 def send_wake_status(mac, flag=None):
     url = None
     if flag == "online":
