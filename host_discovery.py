@@ -9,11 +9,18 @@ import wake_device
 
 base_url = "https://dashboard.pcbutler.net/api"
 
-hostnames = {
-    "20-47-47-EF-6F-C2": "SAI-PC",
-    "20-47-47-BA-62-92": "JOHN-PC",
-    "98-28-A6-24-8A-58": "ROYCE-PC"
-}
+
+def find_hostname(mac):
+    hostnames = {
+        "20-47-47-EF-6F-C2": "SAI-PC",
+        "20-47-47-BA-62-92": "JOHN-PC",
+        "98-28-A6-24-8A-58": "ROYCE-PC",
+        "30-5A-3A-C4-47-68": "GATEWAY",
+        "DC-A6-32-0C-0F-B0": "PCBUTLER",
+    }
+    if mac in hostnames.keys():
+        return hostnames[mac]
+    return "UNKNOWN"
 
 
 def find_hosts():
@@ -51,7 +58,7 @@ def send_computer(mode, mac=None, hostname=None, address=None):
 
 def format_mac(mac):
     sep = mac[2]
-    return mac.replace(sep, "-").lower()
+    return mac.replace(sep, "-").upper()
 
 
 def update_database(ans):
@@ -73,7 +80,7 @@ def update_database(ans):
                 send_wake_status(mac, flag="offline")
 
     for mac, ip in discovery_table.items():
-        send_computer("new", mac=mac, address=ip, hostname=hostnames[mac])
+        send_computer("new", mac=mac, address=ip, hostname=find_hostname(mac))
         send_wake_status(mac, flag="online")
 
 
