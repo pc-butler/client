@@ -89,7 +89,7 @@ if __name__ == "__main__":
     while True:
         try:
             update_database(find_hosts())
-            time.sleep(5)
+            time.sleep(8)
             wake_device.start()
         except KeyboardInterrupt:
             sys.exit(0)
