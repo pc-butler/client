@@ -51,7 +51,7 @@ def send_computer(mode, mac=None, hostname=None, address=None):
 
 def format_mac(mac):
     sep = mac[2]
-    return mac.replace(sep, "-")
+    return mac.replace(sep, "-").lower()
 
 
 def update_database(ans):
