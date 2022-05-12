@@ -1,4 +1,3 @@
-import random
 import sys
 import time
 
@@ -9,7 +8,12 @@ from scapy.sendrecv import srp
 import wake_device
 
 base_url = "https://dashboard.pcbutler.net/api"
-hostnames = ["DESKTOP-BOB", "DESKTOP-ALICE", "DESKTOP-STEVE", "DESKTOP-RECEPTION", "DESKTOP-OFFICE"]
+
+hostnames = {
+    "20-47-47-EF-6F-C2": "SAI-PC",
+    "20-47-47-BA-62-92": "JOHN-PC",
+    "98-28-A6-24-8A-58": "ROYCE-PC"
+}
 
 
 def find_hosts():
@@ -69,7 +73,7 @@ def update_database(ans):
                 send_wake_status(mac, flag="offline")
 
     for mac, ip in discovery_table.items():
-        send_computer("new", mac=mac, address=ip, hostname=random.choice(hostnames))
+        send_computer("new", mac=mac, address=ip, hostname=hostnames[mac])
         send_wake_status(mac, flag="online")
 
 
