@@ -50,5 +50,6 @@ def start():
 
 
 if __name__ == "__main__":
+    print("Clearing all devices.")
     clear_all()
     print("Cleared all from database.")
