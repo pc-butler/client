@@ -34,7 +34,6 @@ def wake_devices(queued_devices):
             send_magic_packet(mac)
             i += 1
         clear_queue(mac)
-        time.sleep(5)
         send_wake_status(mac, flag="online")
 
 
