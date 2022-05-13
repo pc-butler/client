@@ -31,6 +31,7 @@ def clear_all():
 def wake_devices(queued_devices):
     for mac in queued_devices:
         i = 0
+        print(f"Sending magic packet to {mac}")
         while i <= 3:
             send_magic_packet(mac)
             i += 1
