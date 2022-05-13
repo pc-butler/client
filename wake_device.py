@@ -6,7 +6,6 @@ from wakeonlan import send_magic_packet
 from host_discovery import base_url, send_wake_status
 
 
-
 def get_queue():
     r = requests.get(url=f"{base_url}/queue.json")
     if r.json() is None:
