@@ -22,10 +22,8 @@ def clear_queue(mac):
 
 
 def clear_all():
-    current_comps = get_current_computers()
-    for mac in current_comps:
-        url = f"{base_url}/delete/{mac}"
-        r = requests.get(url=url)
+    url = f"{base_url}/delete_all"
+    r = requests.get(url=url)
 
 
 def wake_devices(queued_devices):
