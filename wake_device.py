@@ -3,7 +3,7 @@ import time
 import requests
 from wakeonlan import send_magic_packet
 
-from host_discovery import base_url, send_wake_status
+from host_discovery import base_url, send_wake_status, get_current_computers
 
 
 def get_queue():
@@ -22,9 +22,10 @@ def clear_queue(mac):
 
 
 def clear_all():
-    url = f"{base_url}/delete/queue/all"
-    r = requests.get(url=url)
-    return r
+    current_comps = get_current_computers()
+    for mac in current_comps:
+        url = f"{base_url}/delete/{mac}"
+        r = requests.get(url=url)
 
 
 def wake_devices(queued_devices):
@@ -46,3 +47,4 @@ def start():
         pass
     else:
         wake_devices(devices)
+
