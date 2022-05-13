@@ -48,3 +48,7 @@ def start():
     else:
         wake_devices(devices)
 
+
+if __name__ == "__main__":
+    clear_all()
+    print("Cleared all from database.")
