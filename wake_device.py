@@ -3,7 +3,7 @@ import time
 import requests
 from wakeonlan import send_magic_packet
 
-from host_discovery import base_url, send_wake_status, get_current_computers
+from host_discovery import base_url, send_wake_status
 
 
 def get_queue():

@@ -18,7 +18,7 @@ def find_hostname(mac):
         "30-5A-3A-C4-47-68": "GATEWAY",
         "DC-A6-32-0C-0F-B0": "PCBUTLER",
         "5C-26-0A-2A-64-97": "LUCIA-PC",
-        "MAC": "NATHANIEL-PC"
+        "5C-26-0A-0C-17-E0": "NATHANIEL-PC"
     }
     if mac in hostnames.keys():
         return hostnames[mac]
